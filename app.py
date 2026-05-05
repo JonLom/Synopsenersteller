@@ -38,9 +38,9 @@ def main():
     st.divider()
 
     if not config.ANTHROPIC_API_KEY:
-        st.error(
-            "ANTHROPIC_API_KEY not configured. "
-            "Please create a .env file with your API key."
+        logger.error("API key missing. Please create a .env file with your API key.")
+
+        st.error( "Kein KI-Zugang. Abburch."
         )
         st.stop()
 
@@ -61,6 +61,12 @@ def main():
             st.error("Die hochgeladene Datei ist keine gültige PDF-Datei.")
             st.stop()
 
+        # Check if we need to reset state for new file
+        if 'last_filename' not in st.session_state or st.session_state.last_filename != uploaded_file.name:
+            st.session_state.last_filename = uploaded_file.name
+            st.session_state.synopsis_markdown = None
+            st.session_state.output_pdf = None
+
         if st.button("Synopse erstellen", type="primary", use_container_width=True):
             logger.info(f"Synopsis creation requested for: {uploaded_file.name}")
             with st.spinner("Verarbeite PDF..."):
@@ -78,13 +84,10 @@ def main():
 
                     if was_cached:
                         logger.info(f"Result retrieved from cache for: {uploaded_file.name}")
-                        st.success("Ergebnis aus Cache geladen (keine API-Kosten)")
                     else:
                         logger.info(f"API call completed for: {uploaded_file.name}")
-                        st.success("KI-Analyse abgeschlossen")
 
-                    st.markdown("### Vorschau")
-                    st.markdown(synopsis_markdown)
+                    st.success("KI-Analyse abgeschlossen")
 
                 except Exception as e:
                     logger.error(f"LLM processing failed for {uploaded_file.name}: {str(e)}")
@@ -97,18 +100,26 @@ def main():
                     logger.info(f"PDF generated successfully for: {uploaded_file.name}")
                     st.success("PDF erfolgreich erstellt")
 
-                    st.download_button(
-                        label="Synopse als PDF herunterladen",
-                        data=output_pdf,
-                        file_name="synopse.pdf",
-                        mime="application/pdf",
-                        use_container_width=True
-                    )
+                    # Store in session state
+                    st.session_state.synopsis_markdown = synopsis_markdown
+                    st.session_state.output_pdf = output_pdf
 
                 except Exception as e:
                     logger.error(f"PDF generation failed for {uploaded_file.name}: {str(e)}")
                     st.error(f"Fehler beim Erstellen der PDF: {str(e)}")
                     st.stop()
+
+        # Display results if available in session state
+        if st.session_state.get('synopsis_markdown') and st.session_state.get('output_pdf'):
+            st.download_button(
+                label="Synopse als PDF herunterladen",
+                data=st.session_state.output_pdf,
+                file_name="synopse.pdf",
+                mime="application/pdf",
+                use_container_width=True
+            )
+
+            st.markdown(st.session_state.synopsis_markdown)
 
     st.divider()
 

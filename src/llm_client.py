@@ -1,10 +1,11 @@
 """LLM client module for processing legislative amendments with Claude."""
 
-import anthropic
-from typing import Optional
-import config
-import os
 import logging
+import os
+
+import anthropic
+
+import config
 from .cache import compute_document_hash, get_cached_response, save_response_to_cache
 
 logger = logging.getLogger(__name__)

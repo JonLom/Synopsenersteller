@@ -1,12 +1,7 @@
 # TASK
 
 Process a legislative amendment proposal and produce a structured before/after comparison of the affected legal text.
-
-
----
-# OUTPUT LANGUAGE (STRICT PRIORITY)
-
-- All responses MUST BE in German in jouristic tone.
+ 
 # DATA SOURCES (STRICT PRIORITY)
 
 ## Official sources (use first)
@@ -85,6 +80,7 @@ Before generating output, verify:
 - No unintended sections were modified
 - Legal structure is intact
 - Numbering is consistent (if renumbering occurred)
+- Markdown formating is correct: Text and table
 
 If uncertainty exists:
 
@@ -95,19 +91,33 @@ If uncertainty exists:
 
 # OUTPUT FORMAT (STRICT)
 
-Provide a Markdown table:
+- All responses MUST BE in German. Use official tone.
+- Return response structured as markdown
+- Structure the output as follows:
+  - # Title: Synopse
+  - ## Subtitle: [Title of the change amendment]
+  - [Synopses table (Format see below)]
+  - ## Subtitle: "Weiterführende Informationen"
+    - Information about relevant pages in the amendment
+    - Information about which laws are relevant
+    - Online sources used for the analysis: List of full links
+    - If any assumptions where made, list here
 
-| Section | Old Version | New Version | Change Type |
-|--------|-------------|-------------|-------------|
+
+## Format of the synopsis table
+
+- Provide a Markdown table:
+
+| Abschnitt | Alte Fassung  | Neue Fassung | Änderungstyp |
+|-----------|---------------|--------------|--------------|
 
 Rules:
-Anoth
 - One row per modified unit
 - Use full legal wording (no summaries)
 - Keep formatting consistent
 - Clearly label change type:
   - Replace / Insert / Delete / Renumber
-- The table must be the first output before all other information
+- Highlight differences inline (e.g., **bold for additions**, ~~strikethrough for deletions~~)
 
 ---
 
@@ -117,9 +127,3 @@ Anoth
 - Do NOT interpret beyond the amendment text
 - Preserve original legal wording exactly
 - Do NOT omit unchanged parts within a modified section
-
----
-
-# OPTIONAL (IF SUPPORTED)
-
-- Highlight differences inline (e.g., **bold for additions**, ~~strikethrough for deletions~~)
