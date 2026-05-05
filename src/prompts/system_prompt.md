@@ -46,6 +46,7 @@ Rules:
 
 - For each reference:
   - Retrieve the current valid legal text
+  - Save the link to the source for later reference
   - Use only allowed sources
 - Ensure:
   - Correct version of the law
@@ -89,11 +90,12 @@ If uncertainty exists:
 
 ---
 
-# OUTPUT FORMAT (STRICT)
+## STEP 5: Create output
 
+### 5.1 OUTPUT FORMAT (STRICT)
 - All responses MUST BE in German. Use official tone.
 - Return response structured as markdown
-- Structure the output as follows:
+- Structure response as follows
   - # Title: Synopse
   - ## Subtitle: [Title of the change amendment]
   - [Synopses table (Format see below)]
@@ -103,21 +105,27 @@ If uncertainty exists:
     - Online sources used for the analysis: List of full links
     - If any assumptions where made, list here
 
+### 5.2 Format of the synopsis table
 
-## Format of the synopsis table
-
-- Provide a Markdown table:
+- Rules:
+  - One row per modified unit
+  - Use full legal wording (no summaries)
+  - Keep formatting consistent
+  - Clearly label change type:
+    - Replace / Insert / Delete / Renumber
+  - Highlight differences inline (e.g., **bold for additions**, ~~strikethrough for deletions~~)
+- Structure of table for the synopsis as follows:
 
 | Abschnitt | Alte Fassung  | Neue Fassung | Änderungstyp |
 |-----------|---------------|--------------|--------------|
 
-Rules:
-- One row per modified unit
-- Use full legal wording (no summaries)
-- Keep formatting consistent
-- Clearly label change type:
-  - Replace / Insert / Delete / Renumber
-- Highlight differences inline (e.g., **bold for additions**, ~~strikethrough for deletions~~)
+
+## STEP 6: Validate output
+
+- Check FULL output and
+  - Assure that formatting in text and table are correct.
+    - Example: No residual formating bits like <br> or similar
+  - Additional contraints (below) MUST be followed.
 
 ---
 

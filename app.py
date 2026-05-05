@@ -33,7 +33,9 @@ def main():
     st.title("Synopsenersteller")
     st.subheader("Erstellt Synopsen aus PDF, KI und Online Gesetzestexten")
 
-    st.warning("⚠️ Testversion! Muss noch verifiziert werden.")
+    st.warning("""⚠️ Testversion! Muss noch verifiziert werden. 
+                Wir freuen uns über Feedback und Ideen! Siehe Kontakt unten.
+                """)
 
     st.divider()
 
