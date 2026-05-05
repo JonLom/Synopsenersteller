@@ -8,12 +8,13 @@ import config
 import logging
 import os
 
-# Configure logging
-os.makedirs('logs', exist_ok=True)
+# Configure logging for both local and Streamlit Cloud
 logging.basicConfig(
-    filename='logs/synopsenersteller.log',
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler()  # Logs to stdout (captured by Streamlit Cloud)
+    ]
 )
 logger = logging.getLogger(__name__)
 
