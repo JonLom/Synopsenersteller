@@ -32,6 +32,8 @@ def main():
     st.title("Synopsenersteller")
     st.subheader("Erstellt Synopsen aus PDF, KI und Online Gesetzestexten")
 
+    st.warning("⚠️ Testversion! Muss noch verifiziert werden.")
+
     st.divider()
 
     if not config.ANTHROPIC_API_KEY:
@@ -126,6 +128,12 @@ def main():
         - recht.bund.de
         - bgbl.de
         - eur-lex.europa.eu
+
+        **Inspiriert durch:**
+        - [Lage der Gesetze - Forum Thread](https://talk.lagedernation.org/t/lage-der-gesetze-gesetzesaenderungen-als-pull-requests-sichtbar-machen/32799)
+
+        **Repository:**
+        - [GitHub: JonLom/Synopsenersteller](https://github.com/JonLom/Synopsenersteller)
         """)
 
 
