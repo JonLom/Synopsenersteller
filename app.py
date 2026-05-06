@@ -80,21 +80,32 @@ def main():
                     st.error(f"Fehler beim Verarbeiten der PDF: {str(e)}")
                     st.stop()
 
-            with st.spinner("Analysiere Gesetzesänderungen mit KI..."):
-                try:
-                    synopsis_markdown, was_cached = process_amendment_with_llm(pdf_text, pdf_bytes)
+            # Create status placeholder for streaming updates
+            status_placeholder = st.empty()
 
-                    if was_cached:
-                        logger.info(f"Result retrieved from cache for: {uploaded_file.name}")
-                    else:
-                        logger.info(f"API call completed for: {uploaded_file.name}")
+            try:
+                # Define callback for status updates
+                def update_status(message: str):
+                    status_placeholder.info(message)
 
-                    st.success("KI-Analyse abgeschlossen")
+                # Process with LLM (streaming or non-streaming based on config)
+                synopsis_markdown, was_cached = process_amendment_with_llm(
+                    pdf_text,
+                    pdf_bytes,
+                    status_callback=update_status
+                )
 
-                except Exception as e:
-                    logger.error(f"LLM processing failed for {uploaded_file.name}: {str(e)}")
-                    st.error(f"Fehler bei der KI-Verarbeitung: {str(e)}")
-                    st.stop()
+                if was_cached:
+                    logger.info(f"Result retrieved from cache for: {uploaded_file.name}")
+                    status_placeholder.success("Ergebnis aus Cache geladen")
+                else:
+                    logger.info(f"API call completed for: {uploaded_file.name}")
+                    status_placeholder.success("KI-Analyse abgeschlossen")
+
+            except Exception as e:
+                logger.error(f"LLM processing failed for {uploaded_file.name}: {str(e)}")
+                status_placeholder.error(f"Fehler bei der KI-Verarbeitung: {str(e)}")
+                st.stop()
 
             with st.spinner("Erstelle PDF-Ausgabe..."):
                 try:
