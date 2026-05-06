@@ -1,0 +1,41 @@
+[run]
+# Measure coverage for source files
+source = src, .
+
+# Omit files from coverage
+omit =
+    */tests/*
+    */test_*.py
+    */__init__.py
+    .venv/*
+    venv/*
+    */site-packages/*
+    setup.py
+
+[report]
+# Show lines that weren't executed
+show_missing = True
+
+# Target coverage percentage
+fail_under = 70
+
+# Precision for coverage percentages
+precision = 2
+
+# Exclude lines from coverage (e.g., defensive code)
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:
+    @abstractmethod
+
+[html]
+# Directory for HTML coverage report
+directory = htmlcov
+
+[xml]
+# XML output for CI/CD integration
+output = coverage.xml

@@ -227,3 +227,9 @@ logs/
 *.pdf
 # Exception: Keep test data PDFs
 !tests/data/*.pdf
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+*.cover
