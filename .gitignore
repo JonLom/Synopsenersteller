@@ -225,3 +225,9 @@ temp/
 cache/
 logs/
 *.pdf
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+*.cover
