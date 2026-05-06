@@ -2,6 +2,8 @@
 
 Erstellt Synopsen aus PDF, KI und Online Gesetzestexten
 
+App unter [Synopsenersteller](https://synopsenersteller.streamlit.app)
+
 ## Setup
 
 1. Create a virtual environment:
