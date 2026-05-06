@@ -1,7 +1,7 @@
 # TASK
 
 Process a legislative amendment proposal and produce a structured before/after comparison of the affected legal text.
- 
+
 # DATA SOURCES (STRICT PRIORITY)
 
 ## Official sources (use first)
