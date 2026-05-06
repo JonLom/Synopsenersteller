@@ -21,7 +21,7 @@ def load_system_prompt() -> str:
     Raises:
         Exception: If prompt file cannot be loaded
     """
-    prompt_path = os.path.join(os.path.dirname(__file__), 'prompts', 'system_prompt.md')
+    prompt_path = os.path.join(os.path.dirname(__file__), 'prompts', 'system_prompt_de.md')
     try:
         with open(prompt_path, 'r', encoding='utf-8') as f:
             return f.read()
